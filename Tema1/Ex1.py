@@ -10,9 +10,9 @@ x = []
 for i in range(0, 10000):
     x.append(stats.binom.rvs(1, 0.4, size=1))
     if x[i] == 0:
-        z.append(stats.expon.rvs(0.25))
+        z.append(stats.expon.rvs(0,0.25))
     else:
-        z.append(stats.expon.rvs(0.16))
+        z.append(stats.expon.rvs(0,0.16))
 s = np.sum(z)
 media = s / 10000
 d = np.std(z)
