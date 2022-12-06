@@ -6,7 +6,9 @@ import pymc3 as pm
 
 with pm.Model():
     nr_clienti = pm.poisson(20, 1000)
-
+    nr_statii_gatit = pm.random.randint(1, 10)
+    nr_statii_casa = pm.random.randint(1, 10)
+    nr_mese = pm.random.randint(1, 10)
     for i in range(len(nr_clienti)):
         timp_plasare_plata = pm.Normal('x', mu=1, sigma=0.5)
 
@@ -20,15 +22,12 @@ with pm.Model():
             'mancat': trace['M'].tolist()
         }
 
-        for elem in dictionary['comanda']:
+       for elem in dictionary['comanda']:
             timp_plasare_plata += elem
-        for elem in dictionary['gatit']:
+       for elem in dictionary['gatit']:
             timp_comanda += elem
-        for elem in dictionary['mancat']:
+       for elem in dictionary['mancat']:
             timp_consum += elem
-       nr_statii_gatit = pm.random.randint(1, 10)
-       nr_statii_casa = pm.random.randint(1, 10)
-       nr_mese = pm.random.randint(1, 10)
        timp_comanda /= nr_statii_gatit
        timp_plasare_plata /= nr_statii_casa
        timp_consum /= nr_mese
